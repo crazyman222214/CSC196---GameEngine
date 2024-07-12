@@ -8,5 +8,6 @@ void Particle::Update(float dt)
 
 void Particle::Draw(Renderer& renderer)
 {
-	if (m_lifespan > 0) renderer.DrawPoint(m_position.x, m_position.y);
+	
+	if (m_lifespan > 0) renderer.DrawRect(m_position.x, m_position.y, 4.0f, 4.0f);
 }
