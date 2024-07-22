@@ -1,50 +1,42 @@
-#include "Renderer.h"
-#include "Vector2.h"
-#include "Input.h"
-#include "Particle.h"
-#include "Random.h"
-#include "ETime.h"
-#include "MathUtils.h"
-#include "Model.h"
-#include "Transform.h"
+#include "Engine.h"
+#include "Player.h"
+#include "Scene.h"
+#include "Enemy.h"
+#include "TriangleMan.h"
+#include "SquareMan.h"
+#include "CircleMan.h"
+#include "MyGame.h"
 
-#include <SDL.h>
+
 #include <iostream>
 #include <cstdlib>
 #include <vector>
-#include <fmod.hpp>
 
 
 int main(int argc, char* argv[])
 {
+	g_engine.Initialize();
+	MyGame* game = new MyGame(&g_engine);
+	game->Initialize();
+
+	while (!g_engine.IsQuit())
+	{
+		g_engine.Update();
+		game->Update(g_engine.GetTime().GetDeltaTime());
+
+		g_engine.GetRenderer().SetColor(255, 255, 255, 0);
+		g_engine.GetRenderer().BeginFrame();
+
+		game->Draw(g_engine.GetRenderer());
+
+		g_engine.GetRenderer().EndFrame();
+	}
+
+
+	return 0;
+}
+/*
 	//Create Systems
-	Renderer renderer;
-	renderer.Initialize();
-	renderer.CreateWindow("Game Engine", 800, 600);
-
-	Input input;
-	input.Initialize();
-
-	Time time;
-
-	FMOD::Sound* sound = nullptr;
-	FMOD::System* audio;
-	FMOD::System_Create(&audio);
-	void* extradriverdata = nullptr;
-	audio->init(32, FMOD_INIT_NORMAL, extradriverdata);
-
-	std::vector<FMOD::Sound*> sounds;
-	audio->createSound("bass.wav", FMOD_DEFAULT, 0, &sound);
-	sounds.push_back(sound);
-
-	audio->createSound("snare.wav", FMOD_DEFAULT, 0, &sound);
-	sounds.push_back(sound);
-
-	audio->createSound("open-hat.wav", FMOD_DEFAULT, 0, &sound);
-	sounds.push_back(sound);
-
-	audio->createSound("test.wav", FMOD_DEFAULT, 0, &sound);
-	
 
 	std::vector<Particle> particles;
 	float offset = 0;
@@ -52,33 +44,12 @@ int main(int argc, char* argv[])
 
 	std::vector<Vector2> points;
 
-	points.push_back(Vector2{ 5, 0 });
-	points.push_back(Vector2{ 10, 0});
-	points.push_back(Vector2{ 10, 5});
-	points.push_back(Vector2{ 5, 5});
-	points.push_back(Vector2{ 5, 0});
-	points.push_back(Vector2{ 6, 0});
-	points.push_back(Vector2{ 6, -2});
-	points.push_back(Vector2{ 6, 0});
-	points.push_back(Vector2{ 9, 0});
-	points.push_back(Vector2{ 9, -2});
+	
 
 	Model model{ points, Color{ 1,0,0 } };
 
-
-	std::vector<Vector2> points2;
 	
-	points2.push_back(Vector2{ 0,0 });
-	points2.push_back(Vector2{ 2,4 });
-	points2.push_back(Vector2{ 4,0 });
-	points2.push_back(Vector2{ 0,0 });
-	points2.push_back(Vector2{ 1,0 });
-	points2.push_back(Vector2{ 1,-2 });
-	points2.push_back(Vector2{ 1,0 });
-	points2.push_back(Vector2{ 3,0 });
-	points2.push_back(Vector2{ 3,-2 });
-
-	Model model2{ points2, Color{0,1,0} };
+	
 
 	std::vector<Vector2> points3;
 	points3.push_back(Vector2{-4,5});
@@ -111,26 +82,45 @@ int main(int argc, char* argv[])
 	points3.push_back(Vector2{-3.0f,4.828f});
 	points3.push_back(Vector2{-3.5f,4.958f});
 	points3.push_back(Vector2{-4,5});
-	Model model3{ points3, Color{0,0,1} };
+	Model* model3 = new Model{ points3, Color{0,0,1} };
+
+	Scene* scene = new Scene();
+
+	Transform transform{ {300, 300}, 0, 5 };
+	TriangleMan* triangleMan = new TriangleMan(transform);
+	triangleMan->SetTag("Enemy");
+	scene->AddActor(triangleMan);
+
+	Transform transform3{ {600, 300}, 0, 5 };
+	SquareMan* squareMan = new SquareMan(transform3);
+	squareMan->SetTag("Enemy");
+	scene->AddActor(squareMan);
+
+	Transform transform4{ {300, 600}, 0, 5 };
+	CircleMan* circleMan = new CircleMan(transform4);
+	circleMan->SetTag("Enemy");
+	scene->AddActor(circleMan);
+
+	
+
+	float spawnTimer = 2;
+
+	
+
+
 
 
 	Vector2 position{ 400, 300 };
 	// >> Binary shift operator - shifts the bits by a given number, from left to right (1000 -> 0100)
-	Transform transform{ {renderer.GetWidth() >> 1, renderer.GetHeight() >> 1}, 0, 5};
 
-	float rotation = 0;
 
 
 	//Main loop
-
-	bool quit = false;
-	
-
-	while (!quit)
+	while (!g_engine.IsQuit())
 	{
-		audio->update();
+		g_engine.Update();
 		
-		time.Tick();
+
 		//std::cout << time.GetTime() << std::endl;
 		//audio->playSound(sound, 0, false, nullptr);
 		//input
@@ -138,34 +128,31 @@ int main(int argc, char* argv[])
 		//Draw
 
 		//INPUT
-		input.Update();
-		if (input.GetKeyDown(SDL_SCANCODE_ESCAPE))
+
+		spawnTimer -= g_engine.GetTime().GetDeltaTime();
+		if (spawnTimer <= 0)
 		{
-			quit = true;
+			Transform tran{ {200,200}, 0, 2 };
+			TriangleMan* enemy = new TriangleMan(tran);
+			enemy->SetTag("Enemy");
+			scene->AddActor(enemy);
+			spawnTimer = 2;
+
+			Transform tran2{ {600, 300}, 0, 2 };
+			SquareMan* enemy2 = new SquareMan(tran2);
+			enemy2->SetTag("Enemy");
+			scene->AddActor(enemy2);
 		}
 		
-		if (input.GetKeyDown(SDL_SCANCODE_Q) && !input.GetPrevKeyDown(SDL_SCANCODE_Q)) audio->playSound(sounds[0], 0, false, nullptr);
-		if (input.GetKeyDown(SDL_SCANCODE_W) && !input.GetPrevKeyDown(SDL_SCANCODE_W)) audio->playSound(sounds[1], 0, false, nullptr);
-		if (input.GetKeyDown(SDL_SCANCODE_E) && !input.GetPrevKeyDown(SDL_SCANCODE_E)) audio->playSound(sounds[2], 0, false, nullptr);
-	{
-		// play bass sound, vector elements can be accessed like an array with [#]
-	}
+		if (g_engine.GetInput().GetKeyDown(SDL_SCANCODE_Q) && g_engine.GetInput().GetPrevKeyDown(SDL_SCANCODE_Q)) g_engine.GetAudio().PlaySound("Test.wav");
+		if (g_engine.GetInput().GetKeyDown(SDL_SCANCODE_W) && g_engine.GetInput().GetPrevKeyDown(SDL_SCANCODE_W)) g_engine.GetAudio().PlaySound("Test.wav");
+		if (g_engine.GetInput().GetKeyDown(SDL_SCANCODE_E) && g_engine.GetInput().GetPrevKeyDown(SDL_SCANCODE_E)) g_engine.GetAudio().PlaySound("Test.wav");
 
-		float thrust = 0;
-		if (input.GetKeyDown(SDL_SCANCODE_LEFT)) transform.rotation += Math::DegToRad(100) * time.GetDeltaTime();
-		if (input.GetKeyDown(SDL_SCANCODE_RIGHT)) transform.rotation += Math::DegToRad(100) * time.GetDeltaTime();
-		if (input.GetKeyDown(SDL_SCANCODE_UP)) thrust = 40;
-		if (input.GetKeyDown(SDL_SCANCODE_DOWN)) thrust = -40;
-
-		Vector2 velocity = Vector2{ thrust, 0.0f }.Rotate(transform.rotation);
-		transform.position += velocity * time.GetDeltaTime();
-		transform.position.x = Math::Wrap(transform.position.x, (float)renderer.GetWidth());
-		transform.position.y = Math::Wrap(transform.position.y, (float)renderer.GetWidth());
-		//transform.rotation = transform.rotation + time.GetDeltaTime();
-
+		
 		//UPDATE
-		Vector2 mousePosition = input.GetMousePosition();
-		if (input.GetMouseButtonDown(0))
+		scene->Update(g_engine.GetTime().GetDeltaTime());
+		Vector2 mousePosition = g_engine.GetInput().GetMousePosition();
+		/*if (g_engine.GetInput().GetMouseButtonDown(0))
 		{
 			for (int i = 0; i < 200000; i++)
 			{
@@ -176,7 +163,7 @@ int main(int argc, char* argv[])
 
 		for (Particle& particle : particles)
 		{
-			particle.Update(time.GetDeltaTime());
+			particle.Update(g_engine.GetTime().GetDeltaTime());
 			if (particle.m_position.x > 800) particle.m_position.x = 0;
 			if (particle.m_position.x < 0) particle.m_position.x = 800;
 			if (particle.m_position.y > 600) particle.m_position.y = 0;
@@ -184,12 +171,12 @@ int main(int argc, char* argv[])
 		}
 		//std::cout << mousePosition.x << " " << mousePosition.y << std::endl;
 
-		if (input.GetMouseButtonDown(0) && !input.GetPrevMouseButtonDown(0))
+		if (g_engine.GetInput().GetMouseButtonDown(0) && !g_engine.GetInput().GetPrevMouseButtonDown(0))
 		{
 			points.push_back(mousePosition);
 		}
 
-		if (input.GetMouseButtonDown(0) && input.GetPrevMouseButtonDown(0))
+		if (g_engine.GetInput().GetMouseButtonDown(0) && g_engine.GetInput().GetPrevMouseButtonDown(0))
 		{
 			float distance = (points.back() - mousePosition).Length();
 
@@ -201,8 +188,8 @@ int main(int argc, char* argv[])
 		//// clear screen
 
 		//Background color
-		renderer.SetColor(255,255, 255, 0);
-		renderer.BeginFrame();
+		g_engine.GetRenderer().SetColor(255,255, 255, 0);
+		g_engine.GetRenderer().BeginFrame();
 		//renderer.SetColor(255, 255, 255, 0);
 		
 
@@ -210,17 +197,18 @@ int main(int argc, char* argv[])
 		
 		for (Particle particle : particles)
 		{
-			particle.Draw(renderer);
+			particle.Draw(g_engine.GetRenderer());
 			
 			
 		}
 
-		model.Draw(renderer, transform);
-		model2.Draw(renderer, transform);
-		model3.Draw(renderer, transform);
+		scene->Draw(g_engine.GetRenderer());
+		//model2.Draw(g_engine.GetRenderer(), transform);
+		//model3.Draw(g_engine.GetRenderer(), transform);
 
-		renderer.EndFrame();
+		g_engine.GetRenderer().EndFrame();
 	}
 
 	return 0;
 }
+*/
