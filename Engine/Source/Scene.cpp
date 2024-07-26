@@ -17,13 +17,6 @@ void Scene::Update(float dt)
 	}
 
 	CheckForCollisions();
-
-	// destroy
-	/*auto iter = m_actors.begin();
-	while (iter != m_actors.end())
-	{
-		iter = ((*iter)->m_destroyed) ? m_actors.erase(iter) : ++iter;
-	}*/
 }
 
 /// <summary>

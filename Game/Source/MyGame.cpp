@@ -30,11 +30,13 @@ bool MyGame::Initialize()
 {
     m_scene = new Scene(this);
     m_font = new Font();
+    m_fontLarge = new Font();
     m_font->Load("Blockletter.otf", 20);
+    m_fontLarge->Load("Blockletter.otf", 50);
 
     m_textScore = new Text(m_font);
     m_textLives = new Text(m_font);
-    m_textTitle = new Text(m_font);
+    m_textTitle = new Text(m_fontLarge);
 
     m_roundContents[0] = std::vector<std::string>{"Triangle", "Triangle", "Circle", "Square", "Square", "Triangle", "Square"};
     m_roundContents[1] = std::vector<std::string>{"Triangle", "Square", "Triangle", "Square", "Circle", "Circle", "Square", "Triangle", "Circle", "Triangle", "Square"};
@@ -91,17 +93,6 @@ void MyGame::Update(float dt)
             ui.get()->PopulateUI(*m_scene);
             ui.get()->SetTag("Visual");
             m_scene->AddActor(std::move(ui));
-
-            Transform towerTransform{ {300, 500}, 0, 4 };
-            auto wizardTower = std::make_unique<Cannon>(towerTransform);
-            wizardTower->SetDamping(0.4f);
-            wizardTower->SetTag("Player");
-            m_scene->AddActor(std::move(wizardTower));
-
-
-            Transform transform{ {400, 500}, 0, 1 };
-            auto unitCircle = std::make_unique<UnitRadius>(100.0f, transform);
-            m_scene->AddActor(std::move(unitCircle));
 
             m_spawnTime = 2;
             m_spawnTimer = m_spawnTime;
@@ -231,7 +222,7 @@ void MyGame::Draw(Renderer& renderer)
     {
     case State::TITLE:
         m_textTitle->Create(renderer, "Tower Defense", Color{ 1,0,0,1 });
-        m_textTitle->Draw(renderer, 300, 400);
+        m_textTitle->Draw(renderer, renderer.GetWidth() /3, 20);
         break;
     case State::GAME:
         m_textScore->Create(renderer, "Round " + std::to_string(m_currentRound + 1), { 0,1,0,1 });

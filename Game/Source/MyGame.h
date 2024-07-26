@@ -38,6 +38,7 @@ private:
 	std::unique_ptr<Path> m_path;
 
 	Font* m_font{nullptr};
+	Font* m_fontLarge{nullptr};
 	Text* m_textScore{nullptr};
 	Text* m_textLives{nullptr};
 	Text* m_textTitle{nullptr};
