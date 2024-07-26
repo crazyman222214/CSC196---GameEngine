@@ -3,15 +3,12 @@
 
 void Lightning::Update(float dt)
 {
-	for (int i = 0; i < 10; i++)
-	{
 		Particle::Data data{
 			m_transform.position,
 			Vector2(1,0).Rotate(randomf(Math::TwoPi)) * 50,
 			randomf(0.5f,2.0f),
 			100,100,100,255, };
 		g_engine.GetPS().AddParticle(data);
-	}
 
 	m_velocity = Vector2{ 1, 0 }.Rotate(m_transform.rotation) * m_speed;
 	Actor::Update(dt);

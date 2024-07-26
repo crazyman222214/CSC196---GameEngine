@@ -1,6 +1,7 @@
 #include "WizardTower.h"
 #include "Scene.h"
 #include "Lightning.h"
+#include "Engine.h"
 void WizardTower::CreateModel()
 {
 	std::vector<Vector2> points;
@@ -47,7 +48,7 @@ void WizardTower::Update(float dt)
 	{
 		m_fireTimer = m_fireTime * m_fireModifier;
 
-
+		g_engine.GetAudio().PlaySound("Lightning.wav");
 		// actor
 		Transform transform{ m_transform.position, m_transform.rotation, 3 };
 

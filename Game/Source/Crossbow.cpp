@@ -2,6 +2,7 @@
 #include "UnitRadius.h"
 #include "Scene.h"
 #include "Arrow.h"
+#include "Engine.h"
 #include <memory>
 void Crossbow::CreateModel()
 {
@@ -42,7 +43,7 @@ void Crossbow::Update(float dt)
 	{
 		m_fireTimer = m_fireTime * m_fireModifier;
 
-
+		g_engine.GetAudio().PlaySound("Arrow.wav");
 		// actor
 		Transform transform{ m_transform.position, m_transform.rotation, 3 };
 

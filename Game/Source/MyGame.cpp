@@ -67,13 +67,16 @@ void MyGame::Update(float dt)
 
          m_engine->GetAudio().AddSound("Bomb.wav");
          m_engine->GetAudio().AddSound("Lightning.wav");
-         m_engine->GetAudio().AddSound("Lightning.wav");
+         m_engine->GetAudio().AddSound("Arrow.wav");
+         m_engine->GetAudio().AddSound("Tribes.mp3");
 
         m_state = State::STARTLEVEL;
         break;
     case State::STARTLEVEL:
         m_scene->RemoveAll();
         {
+            m_engine->GetAudio().PlaySound("Tribes.mp3");
+
             Transform pathTransform{ {0,50}, 0, 1 };
             //Path reference for variables
             m_path = std::make_unique<Path>(pathTransform);
@@ -146,7 +149,7 @@ void MyGame::Update(float dt)
         {
             NextRound();
             m_spawnIndex = 0;
-            m_spawnTime = (2 / (m_currentRound + 1));
+            m_spawnTime = 1.5f;
         }
 
         //If the mouse position is in the same as a ui actor, store that actor
