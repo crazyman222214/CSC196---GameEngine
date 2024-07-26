@@ -17,7 +17,7 @@ public:
 
 	float GetRadius();
 
-private:
+protected:
 	std::vector<Vector2> m_points;
 	Color m_color;
 };

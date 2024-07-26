@@ -6,6 +6,7 @@
 
 class Renderer;
 class Scene;
+class Input;
 
 class Actor
 {
@@ -25,10 +26,13 @@ public:
 	void SetTag(const std::string& tag) { m_tag = tag; }
 	const std::string& GetTag() { return m_tag; }
 
-	friend class Scene;
 
 	virtual void OnCollision(Actor* actor) = 0;
 	float GetRadius() { return (m_model) ? m_model->GetRadius() * m_transform.scale : 0; }
+
+	void UpdateTransformToMouse(Input& input, Vector2 previousPosition);
+
+	friend class Scene;
 
 
 protected:
@@ -38,8 +42,8 @@ protected:
 
 	Transform m_transform;
 	Vector2 m_velocity{ 0, 0 };
-	float m_damping = 0;
+	float m_damping = 0.0f;
 
 	Model* m_model{ nullptr };
-	Scene* m_scene;
+	Scene* m_scene{nullptr};
 };

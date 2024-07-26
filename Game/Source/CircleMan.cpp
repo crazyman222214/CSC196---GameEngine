@@ -3,6 +3,7 @@
 #include "Color.h"
 #include "Player.h"
 #include "Scene.h"
+#include "GameData.h"
 #include <vector>
 void CircleMan::CreateModel()
 {
@@ -43,12 +44,32 @@ void CircleMan::CreateModel()
 
 void CircleMan::Update(float dt)
 {
-	Player* player = m_scene->GetActor<Player>();
-	if (player)
+	if (m_path)
 	{
-		Vector2 direction = player->GetTransform().position - m_transform.position;
-		m_velocity = direction.Normalized() * m_speed * dt;
-		m_transform.rotation = direction.Angle();
+		//bool atNextPathPoint = m_transform.position == GameData::pathPoints[m_pathIndex + 1];
+		Vector2 direction = (GameData::worldPathPoints[m_pathIndex + 1] - m_transform.position + m_path->GetTransform().position);
+		float distance = direction.Length();
+
+		if (m_pathIndex == 0)
+		{
+			m_velocity = direction.Normalized() * m_speed * dt;
+			//m_velocity.y = ((m_velocity.y <= 0) ? m_velocity.y * -1 : m_velocity.y * 1);
+			m_transform.rotation = direction.Angle();
+		}
+		if ((distance >= 1))
+		{
+
+			//If not at the next point, travel through the path at the given velocity
+		}
+		else if (m_pathIndex != GameData::pathPoints.size())
+		{
+			++m_pathIndex;
+			direction = (GameData::worldPathPoints[m_pathIndex + 1] - m_transform.position + m_path->GetTransform().position);
+			distance = direction.Length();
+			m_velocity = direction.Normalized() * m_speed * dt;
+			//m_velocity.y = ((m_velocity.y <= 0) ? m_velocity.y * -1 : m_velocity.y * 1);
+			m_transform.rotation = direction.Angle();
+		}
+		Actor::Update(dt);
 	}
-	Actor::Update(dt);
 }

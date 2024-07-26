@@ -1,5 +1,6 @@
 #include "Actor.h"
 #include "Model.h"
+#include "Input.h"
 
 void Actor::Update(float dt)
 {
@@ -23,4 +24,20 @@ void Actor::Draw(Renderer& renderer)
 	{
 		m_model->Draw(renderer, m_transform);
 	}
+}
+
+void Actor::UpdateTransformToMouse(Input& input, Vector2 previousPosition)
+{
+	m_transform.position = input.GetMousePosition();
+
+	if (input.GetMouseButtonDown(1) && this->GetTag() == "UI")
+	{
+		m_transform.scale = 4;
+	}
+
+	if (input.GetMouseButtonDown(2))
+	{
+		m_transform.position = previousPosition;
+	}
+	
 }

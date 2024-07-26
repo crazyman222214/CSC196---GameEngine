@@ -3,48 +3,44 @@
 #include "Bullet.h"
 #include "Scene.h"
 #include "MyGame.h"
+#include "Arrow.h"
+#include <iostream>
 
 void Player::Update(float dt)
 {
-	float thrust = 0;
-	if (g_engine.GetInput().GetKeyDown(SDL_SCANCODE_LEFT)) m_transform.rotation -= Math::DegToRad(100) * dt;
-	if (g_engine.GetInput().GetKeyDown(SDL_SCANCODE_RIGHT)) m_transform.rotation += Math::DegToRad(100) * dt;
+	//Using this so I can set a difference between placed towers and UI
+	if (this->GetTag() != "Player") return;
 
-	if (g_engine.GetInput().GetKeyDown(SDL_SCANCODE_UP)) thrust = m_speed;
-	if (g_engine.GetInput().GetKeyDown(SDL_SCANCODE_DOWN)) thrust = -m_speed;
+	//If there is a enemy in the range of the UnitRadius, it should change it's rotation to face the enemy and shoot
+	//Edge case: what if there are multiple enemies in the UnitRadius
 
-	Vector2 acceleration = Vector2{ 1.0f, 0.0f }.Rotate(m_transform.rotation) * thrust;
-	m_velocity += acceleration * dt;
-
-	m_transform.position.x = Math::Wrap(m_transform.position.x, (float)g_engine.GetRenderer().GetWidth());
-	m_transform.position.y = Math::Wrap(m_transform.position.y, (float)g_engine.GetRenderer().GetWidth());
-	m_fireTimer -= dt;
-	if (g_engine.GetInput().GetKeyDown(SDL_SCANCODE_SPACE) && m_fireTimer <= 0)
+	Enemy* closestEnemy = dynamic_cast<Enemy*>( m_scene->GetClosestEnemyWithinRadius(*this, this->GetUnitRadius().get()->GetRadius()) );
+	if (closestEnemy)
 	{
-		m_fireTimer = 0.2f * m_fireModifier;
-		std::vector<Vector2> points;
-		points.push_back(Vector2{ 5, 0 });
-		points.push_back(Vector2{ -5, -5 });
-		points.push_back(Vector2{ -5, 5 });
-		points.push_back(Vector2{ 5, 0 });
-
-		// actor
-		Model* model = new Model{ points, Color{ 1, 0, 0 } };
-		Transform transform{ m_transform.position, m_transform.rotation, 1 };
-
-		Bullet* bullet = new Bullet(400, transform, model);
-		bullet->SetLifespan(1);
-		bullet->SetTag("Player");
-		m_scene->AddActor(bullet);
+		Vector2 direction = (closestEnemy->GetTransform().position - m_transform.position);
+		m_transform.rotation = Vector2{ Math::Cos(direction.Angle()), Math::Sin(direction.Angle())}.Angle(); 
+		m_hasEnemyInRange = true;
 	}
+	else
+	{
+		m_hasEnemyInRange = false;
+	}
+	
+
+	
 
 	Actor::Update(dt);
 }
 
+void Player::Draw(Renderer& renderer)
+{
+	m_unitRadius.get()->Draw(renderer);
+	Actor::Draw(renderer);
+}
+
+
+
 void Player::OnCollision(Actor* actor)
 {
-	if (actor->GetTag() == "Enemy") {
-		m_destroyed = true;
-		dynamic_cast<MyGame*>(m_scene->GetGame())->OnPlayerDeath();
-	}
+
 }

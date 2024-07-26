@@ -19,30 +19,21 @@
     <Filter Include="Header Files\Actors">
       <UniqueIdentifier>{5eca3bd8-7aab-4404-bf8e-863145880faa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Actors\Players">
+      <UniqueIdentifier>{8e667d05-a3e5-4cb2-aca4-6b02270b6039}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Actors\Players">
+      <UniqueIdentifier>{acdbb43c-588c-4bc4-854c-48b7a1cc239d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Actors\Enemies">
+      <UniqueIdentifier>{ddccc15c-9cfe-4557-ac85-fdd7afee5378}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Actors\Enemies">
+      <UniqueIdentifier>{687a03bc-e78f-4c4b-9823-ae1f5d6167a1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Player.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Bullet.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Enemy.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\TriangleMan.cpp">
-      <Filter>Source Files\Actors</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\SquareMan.cpp">
-      <Filter>Source Files\Actors</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\CircleMan.cpp">
-      <Filter>Source Files\Actors</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\GameData.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\MyGame.cpp">
@@ -51,34 +42,109 @@
     <ClCompile Include="Source\Pickup.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Bullet.cpp">
+      <Filter>Source Files\Actors</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Arrow.cpp">
+      <Filter>Source Files\Actors</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GameData.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Path.cpp">
+      <Filter>Source Files\Actors</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\UI.cpp">
+      <Filter>Source Files\Actors</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\UnitRadius.cpp">
+      <Filter>Source Files\Actors</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Lightning.cpp">
+      <Filter>Source Files\Actors</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\WizardTower.cpp">
+      <Filter>Source Files\Actors\Players</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Cannon.cpp">
+      <Filter>Source Files\Actors\Players</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Player.cpp">
+      <Filter>Source Files\Actors\Players</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Crossbow.cpp">
+      <Filter>Source Files\Actors\Players</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Bomb.cpp">
+      <Filter>Source Files\Actors</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Enemy.cpp">
+      <Filter>Source Files\Actors\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SquareMan.cpp">
+      <Filter>Source Files\Actors\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\TriangleMan.cpp">
+      <Filter>Source Files\Actors\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\CircleMan.cpp">
+      <Filter>Source Files\Actors\Enemies</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\Player.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Enemy.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Bullet.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\TriangleMan.h">
-      <Filter>Header Files\Actors</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\SquareMan.h">
-      <Filter>Header Files\Actors</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\CircleMan.h">
-      <Filter>Header Files\Actors</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\GameData.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Source\MyGame.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Pickup.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Bullet.h">
+      <Filter>Header Files\Actors</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Arrow.h">
+      <Filter>Header Files\Actors</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Path.h">
+      <Filter>Header Files\Actors</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GameData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\UI.h">
+      <Filter>Header Files\Actors</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\UnitRadius.h">
+      <Filter>Header Files\Actors</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Lightning.h">
+      <Filter>Header Files\Actors</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\WizardTower.h">
+      <Filter>Header Files\Actors\Players</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Crossbow.h">
+      <Filter>Header Files\Actors\Players</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Player.h">
+      <Filter>Header Files\Actors\Players</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Cannon.h">
+      <Filter>Header Files\Actors\Players</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Bomb.h">
+      <Filter>Header Files\Actors</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Enemy.h">
+      <Filter>Header Files\Actors\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\TriangleMan.h">
+      <Filter>Header Files\Actors\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SquareMan.h">
+      <Filter>Header Files\Actors\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CircleMan.h">
+      <Filter>Header Files\Actors\Enemies</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

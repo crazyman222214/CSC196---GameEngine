@@ -37,6 +37,8 @@ struct Vector2
 	Vector2& operator *= (float s) { x *= s; y *= s; return *this; }
 	Vector2& operator /= (float s) { x /= s; y /= s; return *this; }
 
+	bool operator == (const Vector2& v) { return (x == v.x && y == v.y); }
+
 
 
 	float LengthSqr() const { return ( (x * x) + (y * y)); }

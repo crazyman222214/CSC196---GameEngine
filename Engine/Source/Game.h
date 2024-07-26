@@ -14,14 +14,17 @@ public:
 	virtual void Update(float dt) = 0;
 	virtual void Draw(Renderer& renderer) = 0;
 
-	int GetScore() const { return m_score; }
-	void AddPoints(int points) { m_score += points; }
+	int GetScore() const { return m_currentRound; }
+	void NextRound() { m_currentRound++; }
 
 	int GetLives() const { return m_lives; }
-	void SetLives(int lives) { m_lives = lives; }
+	void LoseLife() { m_lives--; }
+
+	
 protected:
 	Engine* m_engine{ nullptr };
 	Scene* m_scene{ nullptr };
-	int m_score = 0;
+	int m_currentRound = 0;
+	int m_maxRounds = 0;
 	int m_lives = 0;
 };

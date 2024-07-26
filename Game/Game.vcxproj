@@ -151,16 +151,25 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Arrow.cpp" />
+    <ClCompile Include="Source\Bomb.cpp" />
     <ClCompile Include="Source\Bullet.cpp" />
+    <ClCompile Include="Source\Cannon.cpp" />
     <ClCompile Include="Source\CircleMan.cpp" />
+    <ClCompile Include="Source\Crossbow.cpp" />
     <ClCompile Include="Source\Enemy.cpp" />
     <ClCompile Include="Source\GameData.cpp" />
+    <ClCompile Include="Source\Lightning.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\MyGame.cpp" />
+    <ClCompile Include="Source\Path.cpp" />
     <ClCompile Include="Source\Pickup.cpp" />
     <ClCompile Include="Source\Player.cpp" />
     <ClCompile Include="Source\SquareMan.cpp" />
     <ClCompile Include="Source\TriangleMan.cpp" />
+    <ClCompile Include="Source\UI.cpp" />
+    <ClCompile Include="Source\UnitRadius.cpp" />
+    <ClCompile Include="Source\WizardTower.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Engine\Engine.vcxproj">
@@ -168,15 +177,24 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Arrow.h" />
+    <ClInclude Include="Source\Bomb.h" />
     <ClInclude Include="Source\Bullet.h" />
+    <ClInclude Include="Source\Cannon.h" />
     <ClInclude Include="Source\CircleMan.h" />
+    <ClInclude Include="Source\Crossbow.h" />
     <ClInclude Include="Source\Enemy.h" />
     <ClInclude Include="Source\GameData.h" />
+    <ClInclude Include="Source\Lightning.h" />
+    <ClInclude Include="Source\Path.h" />
     <ClInclude Include="Source\Pickup.h" />
     <ClInclude Include="Source\MyGame.h" />
     <ClInclude Include="Source\Player.h" />
     <ClInclude Include="Source\SquareMan.h" />
     <ClInclude Include="Source\TriangleMan.h" />
+    <ClInclude Include="Source\UI.h" />
+    <ClInclude Include="Source\UnitRadius.h" />
+    <ClInclude Include="Source\WizardTower.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
